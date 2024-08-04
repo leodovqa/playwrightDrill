@@ -3,7 +3,7 @@ import time
 import pytest
 from playwright.sync_api import expect
 
-headless_bool = False
+headless_bool = True
 slowmo_value = 3500
 
 '''try:
@@ -70,7 +70,7 @@ def context_creation(playwright):
 @pytest.fixture(scope='session')
 def test_user_can_login(playwright):
     # Assess - Given
-    headless_bool = False
+    headless_bool = True
     slowmo_value = 2000
     browser = playwright.chromium.launch(headless=headless_bool, slow_mo=2000)
     context = browser.new_context()
