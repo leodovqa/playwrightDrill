@@ -1,6 +1,8 @@
 import time
 from playwright.sync_api import Playwright, sync_playwright, expect
 
+headless_bool = True
+
 # from pom.contact_us_page import ContactUsPage
 if __package__ is None:
     import sys
@@ -13,7 +15,7 @@ else:
 
 
 def test_submit_form(playwright: Playwright):
-    browser = playwright.chromium.launch(headless=True)
+    browser = playwright.chromium.launch(headless=headless_bool)
     page = browser.new_page()
     contact_us = ContactUsPage(page)
     contact_us.navigate()

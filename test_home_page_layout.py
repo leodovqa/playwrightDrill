@@ -2,9 +2,11 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 from pom.shop_women_elements import ShopWomen
 import pytest
 
+headless_bool = True
+
 
 def test_about_us_section_verbiage(playwright: Playwright):
-    browser = playwright.chromium.launch(headless=False, slow_mo=5000)
+    browser = playwright.chromium.launch(headless=headless_bool, slow_mo=5000)
     page = browser.new_page()
     page.goto('https://symonstorozhenko.wixsite.com/website-1')
     shop_women = ShopWomen(page)
@@ -18,7 +20,7 @@ def test_about_us_section_verbiage(playwright: Playwright):
 
 @pytest.mark.xfail(reason='url not ready')
 def test_about_us_section_verbiage_2(playwright: Playwright):
-    browser = playwright.chromium.launch(headless=False, slow_mo=5000)
+    browser = playwright.chromium.launch(headless=headless_bool, slow_mo=5000)
     page = browser.new_page()
     page.goto('https://symonstorozhenko.wixsite.com/website-1fail')
     shop_women = ShopWomen(page)

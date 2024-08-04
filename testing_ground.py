@@ -2,14 +2,14 @@ import time
 
 import pytest
 from playwright.sync_api import sync_playwright, expect
-
+headless_bool = True
 time_out = 2000
 
 
 @pytest.fixture(scope="session")
 def browser():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False, slow_mo=2000)
+        browser = p.chromium.launch(headless=headless_bool, slow_mo=2000)
         yield browser
         browser.close()
 
