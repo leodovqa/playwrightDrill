@@ -2,7 +2,7 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 from pom.shop_women_elements import ShopWomen
 import pytest
 
-headless_bool = True
+headless_bool = False
 
 
 def test_about_us_section_verbiage(playwright: Playwright):
