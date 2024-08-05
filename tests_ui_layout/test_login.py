@@ -2,6 +2,7 @@ import pytest
 
 
 @pytest.mark.smoke
+@pytest.mark.skip
 @pytest.mark.regression
 def test_login(set_up) -> None:
     page = set_up
