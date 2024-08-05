@@ -1,7 +1,6 @@
 import os
 import time
 import pytest
-from playwright.sync_api import expect
 
 headless_bool = True
 slowmo_value = 3500
@@ -15,7 +14,7 @@ except KeyError:
     slowmo_value = 300'''
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def set_up(page):
     # Assess - Given
     # browser = playwright.chromium.launch(headless=False)
@@ -124,7 +123,7 @@ def test_user_can_login(playwright):
         password_field = page.get_by_label("Password")
         password_field.wait_for(state="visible")
         password_field.click()
-        password_field.fill("test123")
+        password_field.fill(os.environ['PASSWORD'])
     except Exception as e:
         print("Password field not found or not visible:", e)
         return
@@ -148,20 +147,7 @@ def login_set_up(context_creation, browser):
     page.set_default_timeout(3000)
 
     yield page
-    # time.sleep(3)
     page.close()
-
-
-# @pytest.fixture()
-# def login_set_up(context_creation):
-#     context = context_creation
-#     page = context.new_page()
-#     page.goto("https://symonstorozhenko.wixsite.com/website-1")
-#     page.set_default_timeout(3000)
-#
-#     yield page
-#     time.sleep(3)
-#     page.close()
 
 
 @pytest.fixture
