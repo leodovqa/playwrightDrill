@@ -2,6 +2,8 @@ import os
 import time
 import pytest
 
+PASSWORD = os.environ['PASSWORD']
+
 headless_bool = True
 slowmo_value = 3500
 
@@ -14,7 +16,7 @@ except KeyError:
     slowmo_value = 300'''
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture()
 def set_up(page):
     # Assess - Given
     # browser = playwright.chromium.launch(headless=False)
@@ -80,7 +82,7 @@ def test_user_can_login(playwright):
 
     # Ensure the "Log In" button is visible and enabled before clicking
     login_button = page.get_by_role("button", name="Log In")
-    login_button.wait_for(state="visible", timeout=slowmo_value)  # Increased timeout to 5000ms
+    login_button.wait_for(state="visible", timeout=3000)  # Increased timeout to 3000ms
     login_button.click()
 
     # Debugging - Check if the sign up switch button exists and is visible
@@ -123,7 +125,7 @@ def test_user_can_login(playwright):
         password_field = page.get_by_label("Password")
         password_field.wait_for(state="visible")
         password_field.click()
-        password_field.fill(os.environ['PASSWORD'])
+        password_field.fill(PASSWORD)
     except Exception as e:
         print("Password field not found or not visible:", e)
         return
