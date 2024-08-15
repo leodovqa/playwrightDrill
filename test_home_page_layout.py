@@ -25,8 +25,8 @@ def test_about_us_section_verbiage_2(playwright: Playwright):
     page.goto('https://symonstorozhenko.wixsite.com/website-1fail')
     shop_women = ShopWomen(page)
 
-    expect(page.is_visible(shop_women.celebrating_beauty_header))
-    expect(page.is_visible(shop_women.celebrating_beauty_body))
+    expect(shop_women.celebrating_beauty_header).to_be_visible()
+    expect(shop_women.celebrating_beauty_body).to_be_visible()
 
     page.close()
     browser.close()

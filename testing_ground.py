@@ -21,7 +21,7 @@ def context(browser):
     context.close()
 
 
-@pytest.fixture(scope="function")
+# @pytest.fixture(scope="function")
 def page(context):
     page = context.new_page()
     yield page

@@ -7,9 +7,19 @@ import pytest
 
 
 @pytest.mark.integration
-def test_about_us_section_verbiage(test_user_can_login) -> None:
+def test_about_us_section_verbiage(login_set_up) -> None:
     # Assess - Given
-    page = test_user_can_login
+    page = login_set_up
+
+    # Assert/Expect the text is visible for correct test
+    expect(page.get_by_text(HomePage.celebrating_beauty_header)).to_be_visible()
+    expect(page.get_by_text(HomePage.celebrating_beauty_body)).to_be_visible()
+
+
+@pytest.mark.integration
+def test_about_us_section_verbiage_login_setup(login_set_up) -> None:
+    # Assess - Given
+    page = login_set_up
 
     # Assert/Expect the text is visible for correct test
     expect(page.get_by_text(HomePage.celebrating_beauty_header)).to_be_visible()
@@ -17,9 +27,9 @@ def test_about_us_section_verbiage(test_user_can_login) -> None:
 
 
 @pytest.mark.xfail(reason="The texts should be visible...")
-def test_about_us_section_verbiage_2(test_user_can_login) -> None:
+def test_about_us_section_verbiage_2(login_set_up) -> None:
     # Assess - Given
-    page = test_user_can_login
+    page = login_set_up
 
     # Assert/Expect the text is hidden for xfail test
     expect(page.get_by_text(HomePage.celebrating_beauty_header)).to_be_hidden()
