@@ -1,8 +1,8 @@
 from playwright.sync_api import Playwright, sync_playwright, expect
 
-headless_bool = True
-# url = 'https://www.chat-avenue.com/general'
-url = 'https://symonstorozhenko.wixsite.com/website-1'
+headless_bool = False
+url = 'https://www.chat-avenue.com/general'
+# url = 'https://symonstorozhenko.wixsite.com/website-1'
 
 
 def run(playwright: Playwright) -> None:

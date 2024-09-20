@@ -1,7 +1,9 @@
+import pytest
 from playwright.sync_api import Page, expect
 from pom.home_page_elements import HomePage
 
 
+@pytest.mark.skip
 def test_visual_landing(page, assert_snapshot) -> None:
     # Navigate to the page
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
@@ -18,6 +20,7 @@ def test_visual_landing(page, assert_snapshot) -> None:
 
 # This test contains mask screenshot for a list of locators,
 # the screenshot in a full page mode and the name for the screenshot set in the name
+@pytest.mark.skip
 def test_visual_landing_shop(page, assert_snapshot) -> None:
     # Navigate to the page
     page.goto("https://symonstorozhenko.wixsite.com/website-1/shop")

@@ -113,7 +113,7 @@ def test_user_can_login(playwright):
     # Open new page
     page = context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
-    page.set_default_timeout(300)
+    page.set_default_timeout(1000)
 
     # Ensure the "Log In" button is visible and enabled before clicking
     login_button = page.get_by_role("button", name="Log In")
@@ -190,7 +190,7 @@ def login_set_up(context_creation, browser):
 
 @pytest.fixture()
 def login_set_up(context_creation, playwright):
-    browser = playwright.chromium.launch(headless=True, slow_mo=300)
+    browser = playwright.chromium.launch(headless=True, slow_mo=1000)
     context = browser.new_context(storage_state="state.json")
     page = context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")

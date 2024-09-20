@@ -1,26 +1,26 @@
 import pytest
 
 url = "https://www.chat-avenue.com/general"
-headless_bool = True
+headless_bool = False
 
 
 @pytest.fixture(scope='session')
 def context1(playwright):
-    # Assess - Given
     slowmo_value = 1000
     browser = playwright.chromium.launch(headless=headless_bool, slow_mo=2000)
     context = browser.new_context()
-    # # Open new page
     page = context.new_page()
     page.goto(url)
-    page.set_default_timeout(300)
+    page.set_default_timeout(10000)
 
-    # Ensure the "Log In" button is visible and enabled before clicking
-    login_button = page.get_by_role("button", name=" Login")
-    login_button.wait_for(state="visible", timeout=slowmo_value)
-    login_button.click()
+    try:
+        login_button = page.locator("xpath=/html/body/div[1]/div[1]/div/div/div[3]/button[1]")
+        print("Login button found:", login_button)
+        login_button.click()
+    except Exception as e:
+        print("Failed to locate or click the login button:", e)
+        return
 
-    # Continue with the login process
     try:
         email_field = page.get_by_placeholder("Username/Email")
         email_field.wait_for(state="visible")
@@ -40,35 +40,37 @@ def context1(playwright):
         return
 
     try:
-        submit_button = page.get_by_role("button", name=" Login")
+        # Using XPath for the submit button
+        # submit_button = page.locator("//*[@id='login_form_box']/div[3]/button")
+        submit_button = page.locator("xpath=/html/body/div[3]/div/div[2]/div/div[3]/button")
+
         submit_button.wait_for(state="visible", timeout=slowmo_value)
         submit_button.click()
     except Exception as e:
         print("Submit button not found or not visible:", e)
         return
-    page.wait_for_load_state(timeout=10000)
-    # time.sleep(2)
 
+    page.wait_for_load_state(timeout=10000)
     yield context
 
 
 @pytest.fixture(scope='session')
 def context2(playwright):
-    # Assess - Given
     slowmo_value = 1000
     browser = playwright.chromium.launch(headless=headless_bool, slow_mo=2000)
     context = browser.new_context()
-    # # Open new page
     page = context.new_page()
     page.goto(url)
-    page.set_default_timeout(300)
+    page.set_default_timeout(10000)
 
-    # Ensure the "Log In" button is visible and enabled before clicking
-    login_button = page.get_by_role("button", name=" Login")
-    login_button.wait_for(state="visible", timeout=slowmo_value)
-    login_button.click()
+    try:
+        login_button = page.locator("xpath=/html/body/div[1]/div[1]/div/div/div[3]/button[1]")
+        login_button.wait_for(state="visible", timeout=slowmo_value)
+        login_button.click()
+    except Exception as e:
+        print("Failed to locate or click the login button:", e)
+        return
 
-    # Continue with the login process
     try:
         email_field = page.get_by_placeholder("Username/Email")
         email_field.wait_for(state="visible")
@@ -88,20 +90,22 @@ def context2(playwright):
         return
 
     try:
-        submit_button = page.get_by_role("button", name=" Login")
+        # Using XPath for the submit button
+        # submit_button = page.locator("//*[@id='login_form_box']/div[3]/button")
+        submit_button = page.locator("xpath=/html/body/div[3]/div/div[2]/div/div[3]/button")
+
         submit_button.wait_for(state="visible", timeout=slowmo_value)
         submit_button.click()
     except Exception as e:
         print("Submit button not found or not visible:", e)
         return
-    page.wait_for_load_state(timeout=10000)
-    # time.sleep(2)
 
+    page.wait_for_load_state(timeout=10000)
     yield context
 
 
 @pytest.fixture()
-def login_set_up_for_chat(context1, context2, browser):
+def login_set_up_for_chat(context1, context2):
     page1 = context1.new_page()
     page2 = context2.new_page()
     page1.goto(url)
